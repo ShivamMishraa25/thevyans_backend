@@ -5,6 +5,7 @@ import 'dotenv/config';
 
 import aboutRoutes from './routes/about.route.js';
 import postRoute from './routes/post.route.js';
+import adminRoutes from './routes/admin.route.js';
 
 const app = new express();
 const PORT = 5100;
@@ -17,6 +18,7 @@ app.use(express.json());
 
 aboutRoutes(app);
 postRoute(app);
+adminRoutes(app);
 
 app.get('/', (req, res) => {
   res.send('YouTube Clone API is running...');
