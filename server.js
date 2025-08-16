@@ -21,7 +21,7 @@ postRoute(app);
 adminRoutes(app);
 
 app.get('/', (req, res) => {
-  res.send('YouTube Clone API is running...');
+  res.send('The Vyans API is running...');
 });
 
 const db = mongoose.connect(process.env.MONGO_URI);
