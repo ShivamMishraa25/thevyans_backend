@@ -51,3 +51,32 @@ export async function createPost (req, res) {
         return res.status(500).json({ message: "Server Error" });
     }
 }
+
+export async function deletePost (req, res) {
+    try {
+        const { id } = req.params;
+        const deleted = await postModel.findByIdAndDelete(id);
+        if (!deleted) {
+            return res.status(404).json({ message: "post not found" });
+        }
+        // Delete images from Cloudinary
+        if (deleted.images && deleted.images.length > 0) {
+            for (const imageUrl of deleted.images) {
+                // Extract public_id from URL
+                const matches = imageUrl.match(/\/([^\/]+)\.[a-zA-Z]+$/);
+                if (matches && matches[1]) {
+                    const publicId = `posts/${matches[1]}`;
+                    try {
+                        await cloudinary.v2.uploader.destroy(publicId);
+                    } catch (err) {
+                        console.error(`Failed to delete image from Cloudinary: ${publicId}`);
+                    }
+                }
+            }
+        }
+        return res.status(200).json({ message: "Post deleted successfully", post: deleted });
+    } catch (err) {
+        console.error(err.message);
+        return res.status(500).json({ message: "Server Error" });
+    }
+}
