@@ -57,13 +57,13 @@ export async function updateAbout(req, res) {
     }
 }
 
-// export async function createAbout(req, res) {
-//     try {
-//         const about = await aboutModel.create(req.body);
-//         if(!about) return res.status(404).json({ message: "about not created" });
-//         return res.status(200).json(about);
-//     } catch (err) {
-//         console.error(err.message);
-//         return res.status(500).json({ message: "Server Error" });
-//     }
-// }
+export async function createAbout(req, res) {
+    try {
+        const about = await aboutModel.create(req.body);
+        if(!about) return res.status(404).json({ message: "about not created" });
+        return res.status(200).json(about);
+    } catch (err) {
+        console.error(err.message);
+        return res.status(500).json({ message: "Server Error" });
+    }
+}
