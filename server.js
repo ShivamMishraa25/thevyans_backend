@@ -8,7 +8,7 @@ import postRoute from './routes/post.route.js';
 import adminRoutes from './routes/admin.route.js';
 
 const app = new express();
-const PORT = 5100;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
     console.log(`server is running at port: ${PORT}`);
 });
